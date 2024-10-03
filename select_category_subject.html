@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Category and Subject</title>
+    <script>
+        function loadSubjects() {
+            var category = document.getElementById('category').value;
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_subjects.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var subjects = JSON.parse(xhr.responseText);
+                    var subjectSelect = document.getElementById('subject');
+                    subjectSelect.innerHTML = '';
+
+                    subjects.forEach(function(subject) {
+                        var option = document.createElement('option');
+                        option.value = subject.id;
+                        option.text = subject.name;
+                        subjectSelect.appendChild(option);
+                    });
+                }
+            };
+            xhr.send("category=" + category);
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Select Category and Subject</h2>
+
+    <label for="category">Category:</label>
+    <select id="category" name="category" onchange="loadSubjects()">
+        <option value="">Select Category</option>
+        <option value="Science">Science</option>
+        <option value="Arts">Arts</option>
+        <option value="Commerce">Commerce</option>
+    </select>
+
+    <br><br>
+
+    <label for="subject">Subject:</label>
+    <select id="subject" name="subject">
+        <option value="">Select Subject</option>
+    </select>
+
+</body>
+</html>
