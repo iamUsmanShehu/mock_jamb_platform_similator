@@ -7,10 +7,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$category = $_POST['category'];
+$category = $_POST['category_id'];
 
 // Fetch subjects based on the selected category
-$query = "SELECT * FROM subjects WHERE category = '$category'";
+$query = "SELECT * FROM subjects WHERE category_id = '$category'";
 $result = $conn->query($query);
 
 $subjects = array();

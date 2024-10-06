@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
 
     if ($conn->query($sql) === TRUE) {
         echo "Payment status updated successfully.";
+        header("location: admin_dashboard.php");
     } else {
         echo "Error updating record: " . $conn->error;
     }
